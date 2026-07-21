@@ -1,0 +1,24 @@
+[
+  {
+    "order_number": "ORD-SAMPLE-0001",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-15T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Open",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [{ "sku": "WATCH-1000", "name": "Example Watch", "price": 500 }],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  }
+]

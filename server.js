@@ -12,6 +12,11 @@ app.use("/tools/calendar", calendarTools);
 // Add new entities here — each gets List/Create/Get/Update/Delete for free.
 const ENTITIES = {
   customers: { idField: "customer_id" },
+  orders: { idField: "order_number" },
+  tickets: { idField: "ticket_id" },
+  rma: { idField: "rma_id" },
+  call_logs: { idField: "call_log_id" },
+  extend_claims: { idField: "extend_claim_id" },
 };
 
 app.get("/", (req, res) => {
