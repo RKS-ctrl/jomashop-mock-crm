@@ -52,6 +52,62 @@ curl -X PUT $BASE/customers/CUST-100001 \
 curl -X DELETE $BASE/customers/CUST-100001
 ```
 
+## Jomashop-shaped mock API (`/api/*`)
+
+These endpoints require HTTP Basic auth and simulate what a voice agent
+calls during a live call. `GetOrdersForPhoneAIByPhoneNo`,
+`GetOrderDetailForPhoneAIByOrderNo`, and `AddNurixAICallLog` mirror the
+3 real endpoints Jomashop shared. Everything else is an invented
+placeholder in the same naming style, pending a real contract.
+
+Credential: set `JOMASHOP_MOCK_CREDENTIAL` (format `user:pass`), or use
+the default `nurix-mock:practice-only-2026` for local dev. This is a
+practice-only credential — never the real Jomashop secret.
+
+| Endpoint | Real or invented |
+|---|---|
+| `POST /api/GetOrdersForPhoneAIByPhoneNo?phoneno=` | Real |
+| `POST /api/GetOrdersForEmailAI?email=` | Invented |
+| `POST /api/GetOrdersForNameAI?name=` | Invented |
+| `POST /api/GetOrderDetailForPhoneAIByOrderNo?orderno=` | Real |
+| `POST /api/CancelOrderForPhoneAI` | Invented |
+| `POST /api/RaiseZendeskTicket` | Invented |
+| `POST /api/CreateRMAForOrderAI` | Invented |
+| `POST /api/GetRMAHistoryByOrderNo?orderno=` | Invented |
+| `POST /api/GetTicketsByOrderNo?orderno=` | Invented |
+| `POST /api/SendExtendClaimEmailAI` | Invented |
+| `POST /api/AddNurixAICallLog` | Real |
+
+## Calendar tool (`/tools/calendar/*`)
+
+No auth. Business-day math for SOP window checks — weekends skipped,
+US holidays NOT excluded (documented simplification).
+
+```bash
+curl -X POST $BASE/tools/calendar/add-business-days \
+  -H "Content-Type: application/json" \
+  -d '{"start_date": "2026-01-05", "business_days": 3}'
+
+curl -X POST $BASE/tools/calendar/business-days-between \
+  -H "Content-Type: application/json" \
+  -d '{"date_a": "2026-01-05", "date_b": "2026-01-08"}'
+```
+
+## Seed data & scenario harness
+
+```bash
+npm run seed        # (re)generates seed/orders.json and seed/rma.json,
+                     # dates computed relative to today so "in window" /
+                     # "past window" scenarios stay correct over time
+rm -f data/*.json    # clear any stale persisted state
+npm start &          # start the server
+npm run scenarios    # plays the voice agent's role through every SOP
+                     # branch over real HTTP, asserts outcomes
+```
+
+See `docs/superpowers/specs/2026-07-21-mock-crm-design.md` for the full
+design rationale.
+
 ## Deploying (e.g. to Render)
 
 `Dockerfile` and `render.yaml` are included. On Render: New → Web Service →

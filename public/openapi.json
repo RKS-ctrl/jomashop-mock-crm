@@ -122,6 +122,143 @@
           "404": { "description": "Record not found" }
         }
       }
+    },
+    "/api/GetOrdersForPhoneAIByPhoneNo": {
+      "post": {
+        "summary": "Look up orders by phone number (mirrors the real Jomashop endpoint)",
+        "security": [{ "basicAuth": [] }],
+        "parameters": [{ "name": "phoneno", "in": "query", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "No customer found" } }
+      }
+    },
+    "/api/GetOrdersForEmailAI": {
+      "post": {
+        "summary": "Look up orders by email (invented — no real endpoint shared yet)",
+        "security": [{ "basicAuth": [] }],
+        "parameters": [{ "name": "email", "in": "query", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "No customer found" } }
+      }
+    },
+    "/api/GetOrdersForNameAI": {
+      "post": {
+        "summary": "Look up orders by name (invented — no real endpoint shared yet)",
+        "security": [{ "basicAuth": [] }],
+        "parameters": [{ "name": "name", "in": "query", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "No customer found" } }
+      }
+    },
+    "/api/GetOrderDetailForPhoneAIByOrderNo": {
+      "post": {
+        "summary": "Get full order detail by order number (mirrors the real Jomashop endpoint)",
+        "security": [{ "basicAuth": [] }],
+        "parameters": [{ "name": "orderno", "in": "query", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "Order not found" } }
+      }
+    },
+    "/api/CancelOrderForPhoneAI": {
+      "post": {
+        "summary": "Cancel an order unconditionally (invented — CRM does not enforce SOP thresholds)",
+        "security": [{ "basicAuth": [] }],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "required": ["orderno"], "properties": { "orderno": { "type": "string" } } } } } },
+        "responses": { "200": { "description": "OK" }, "404": { "description": "Order not found" } }
+      }
+    },
+    "/api/RaiseZendeskTicket": {
+      "post": {
+        "summary": "Raise a Zendesk ticket (invented)",
+        "security": [{ "basicAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["orderno", "type"],
+                "properties": {
+                  "orderno": { "type": "string" },
+                  "type": { "type": "string" },
+                  "reason": { "type": "string" },
+                  "raised_by": { "type": "string" },
+                  "exception": { "type": "boolean" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Created" }, "404": { "description": "Order not found" } }
+      }
+    },
+    "/api/CreateRMAForOrderAI": {
+      "post": {
+        "summary": "Create an RMA/return record (invented)",
+        "security": [{ "basicAuth": [] }],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "required": ["orderno"], "properties": { "orderno": { "type": "string" }, "reason": { "type": "string" } } } } } },
+        "responses": { "201": { "description": "Created" }, "404": { "description": "Order not found" } }
+      }
+    },
+    "/api/GetRMAHistoryByOrderNo": {
+      "post": {
+        "summary": "Get RMA count/history for an order (invented)",
+        "security": [{ "basicAuth": [] }],
+        "parameters": [{ "name": "orderno", "in": "query", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "OK" } }
+      }
+    },
+    "/api/GetTicketsByOrderNo": {
+      "post": {
+        "summary": "Get tickets raised for an order (invented)",
+        "security": [{ "basicAuth": [] }],
+        "parameters": [{ "name": "orderno", "in": "query", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "OK" } }
+      }
+    },
+    "/api/SendExtendClaimEmailAI": {
+      "post": {
+        "summary": "Record that an Extend claim email was sent (invented — not a Zendesk ticket)",
+        "security": [{ "basicAuth": [] }],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "required": ["orderno"], "properties": { "orderno": { "type": "string" }, "reason": { "type": "string" } } } } } },
+        "responses": { "201": { "description": "Created" }, "404": { "description": "Order not found" } }
+      }
+    },
+    "/api/AddNurixAICallLog": {
+      "post": {
+        "summary": "Log a call transcript (mirrors the real Jomashop endpoint)",
+        "security": [{ "basicAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["Transcript", "Solved"],
+                "properties": {
+                  "PhoneNo": { "type": "string" },
+                  "OrderNo": { "type": "string" },
+                  "ItemNo": { "type": "string" },
+                  "Email": { "type": "string" },
+                  "Transcript": { "type": "string" },
+                  "Solved": { "type": "boolean" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Created" } }
+      }
+    },
+    "/tools/calendar/add-business-days": {
+      "post": {
+        "summary": "Add N business days to a date (weekends skipped, no auth)",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "required": ["start_date", "business_days"], "properties": { "start_date": { "type": "string" }, "business_days": { "type": "number" } } } } } },
+        "responses": { "200": { "description": "OK" }, "400": { "description": "Invalid input" } }
+      }
+    },
+    "/tools/calendar/business-days-between": {
+      "post": {
+        "summary": "Count business days between two dates (weekends skipped, no auth)",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "required": ["date_a", "date_b"], "properties": { "date_a": { "type": "string" }, "date_b": { "type": "string" } } } } } },
+        "responses": { "200": { "description": "OK" }, "400": { "description": "Invalid input" } }
+      }
     }
   },
   "components": {
@@ -141,6 +278,9 @@
           "metadata": { "type": "object" }
         }
       }
+    },
+    "securitySchemes": {
+      "basicAuth": { "type": "http", "scheme": "basic" }
     }
   }
 }
