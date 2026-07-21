@@ -112,6 +112,7 @@ const orders = [
   order({
     order_number: "ORD-ITEM-CLOSED",
     item_status: "Closed",
+    order_datetime: `${businessDaysAgo(12)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 10, trackingStatus: "delivered", lastMovementDaysAgo: 8, trackingNumber: "1Z0000000TESTCLOSED" }),
   }),
   order({ order_number: "ORD-HOLD-OPEN", item_status: "Open", payment_hold: true }),
@@ -120,6 +121,7 @@ const orders = [
     order_number: "ORD-HOLD-CLOSED",
     item_status: "Closed",
     payment_hold: true,
+    order_datetime: `${businessDaysAgo(12)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 10, trackingStatus: "delivered", lastMovementDaysAgo: 8, trackingNumber: "1Z0000000TESTHOLD" }),
   }),
 
@@ -134,6 +136,7 @@ const orders = [
     order_number: "ORD-CANCEL-UNDER-CLOSED",
     order_value: 500,
     item_status: "Closed",
+    order_datetime: `${businessDaysAgo(7)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 5, trackingStatus: "delivered", lastMovementDaysAgo: 4, trackingNumber: "1Z0000000TESTCANCELCLOSED" }),
   }),
 
@@ -142,18 +145,21 @@ const orders = [
     order_number: "ORD-RMA-UNDER-FIRST",
     order_value: 500,
     item_status: "Closed",
+    order_datetime: `${businessDaysAgo(12)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 10, trackingStatus: "delivered", lastMovementDaysAgo: 9, trackingNumber: "1Z0000000TESTRMA1" }),
   }),
   order({
     order_number: "ORD-RMA-UNDER-REPEAT",
     order_value: 500,
     item_status: "Closed",
+    order_datetime: `${businessDaysAgo(22)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 20, trackingStatus: "delivered", lastMovementDaysAgo: 19, trackingNumber: "1Z0000000TESTRMA2" }),
   }),
   order({
     order_number: "ORD-RMA-OVER2000",
     order_value: 3000,
     item_status: "Closed",
+    order_datetime: `${businessDaysAgo(12)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 10, trackingStatus: "delivered", lastMovementDaysAgo: 9, trackingNumber: "1Z0000000TESTRMA3" }),
   }),
 
@@ -162,30 +168,35 @@ const orders = [
     order_number: "ORD-DELAY-EXTEND-NOMOVEMENT",
     item_status: "Closed",
     extend_protection: true,
+    order_datetime: `${businessDaysAgo(7)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 5, trackingStatus: "no_movement", trackingNumber: "1Z0000000TESTDELAY1" }),
   }),
   order({
     order_number: "ORD-DELAY-NOEXTEND-UNDER7",
     item_status: "Closed",
     extend_protection: false,
+    order_datetime: `${businessDaysAgo(5)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 3, trackingStatus: "no_movement", trackingNumber: "1Z0000000TESTDELAY2" }),
   }),
   order({
     order_number: "ORD-DELAY-NOEXTEND-OVER7",
     item_status: "Closed",
     extend_protection: false,
+    order_datetime: `${businessDaysAgo(11)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 9, trackingStatus: "no_movement", trackingNumber: "1Z0000000TESTDELAY3" }),
   }),
   order({
     order_number: "ORD-DELAY-EXTEND-NOTRECEIVED",
     item_status: "Closed",
     extend_protection: true,
+    order_datetime: `${businessDaysAgo(8)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 6, trackingStatus: "delivered", lastMovementDaysAgo: 3, deliveredDaysAgo: 2, trackingNumber: "1Z0000000TESTDELAY4" }),
   }),
   order({
     order_number: "ORD-DELAY-NOEXTEND-NOTRECEIVED",
     item_status: "Closed",
     extend_protection: false,
+    order_datetime: `${businessDaysAgo(8)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 6, trackingStatus: "delivered", lastMovementDaysAgo: 3, deliveredDaysAgo: 2, trackingNumber: "1Z0000000TESTDELAY5" }),
   }),
 ];
