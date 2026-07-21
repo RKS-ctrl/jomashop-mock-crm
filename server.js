@@ -1,11 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const { load, save } = require("./lib/store");
+const calendarTools = require("./routes/calendarTools");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
+app.use("/tools/calendar", calendarTools);
 
 // Add new entities here — each gets List/Create/Get/Update/Delete for free.
 const ENTITIES = {
@@ -82,9 +84,11 @@ app.delete("/:entity/:id", (req, res) => {
 
 app.use((req, res) => res.status(404).json({ error: "Not found" }));
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Customer CRUD server listening on :${PORT}`);
-});
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Customer CRUD server listening on :${PORT}`);
+  });
+}
 
 module.exports = app;
