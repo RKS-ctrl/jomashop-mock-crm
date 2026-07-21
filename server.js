@@ -2,12 +2,15 @@ const express = require("express");
 const cors = require("cors");
 const { load, save } = require("./lib/store");
 const calendarTools = require("./routes/calendarTools");
+const { basicAuth } = require("./lib/auth");
+const jomashopApi = require("./routes/jomashopApi");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 app.use("/tools/calendar", calendarTools);
+app.use("/api", basicAuth, jomashopApi);
 
 // Add new entities here — each gets List/Create/Get/Update/Delete for free.
 const ENTITIES = {
