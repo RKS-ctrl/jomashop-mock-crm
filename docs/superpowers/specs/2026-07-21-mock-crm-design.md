@@ -263,7 +263,12 @@ type or absence, resulting order/RMA state) and a runner script that:
 
 ## 9. Error Handling
 
-- Unknown `order_number` / `customer_id` on any lookup → `404 {error}`.
+- Unknown `order_number` / `customer_id` on an identity/detail lookup
+  (`GetOrdersForPhoneAIByPhoneNo`/`-EmailAI`/`-NameAI`,
+  `GetOrderDetailForPhoneAIByOrderNo`) → `404 {error}`. History-style lookups
+  (`GetRMAHistoryByOrderNo`, `GetTicketsByOrderNo`) return `200` with an
+  empty collection for an unknown order instead — a history query on a
+  not-yet-known order is a legitimate "no history" answer, not an error.
 - Missing required identity fields (no phone/name/email/order number) →
   `400 {error}`.
 - Missing/invalid `Authorization` header on any `/api/*` call → `401 {error}`.
