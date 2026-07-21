@@ -1,0 +1,146 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Customer CRUD API",
+    "version": "1.0.0",
+    "description": "CRUD API over a customer dataset (customers). Data is persisted to a local JSON file and seeded from seed/<entity>.json on first read."
+  },
+  "servers": [{ "url": "/", "description": "Current server" }],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "List all entities with record counts",
+        "responses": { "200": { "description": "OK" } }
+      }
+    },
+    "/{entity}": {
+      "get": {
+        "summary": "List all records in an entity",
+        "parameters": [
+          {
+            "name": "entity",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "example": "customers" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Unknown entity" }
+        }
+      },
+      "post": {
+        "summary": "Create a record",
+        "parameters": [
+          {
+            "name": "entity",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "example": "customers" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Customer" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Missing id field" },
+          "409": { "description": "Record already exists" }
+        }
+      }
+    },
+    "/{entity}/{id}": {
+      "get": {
+        "summary": "Get one record by id",
+        "parameters": [
+          {
+            "name": "entity",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "example": "customers" }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "example": "CUST-100001" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Record not found" }
+        }
+      },
+      "put": {
+        "summary": "Update a record (shallow merge)",
+        "parameters": [
+          {
+            "name": "entity",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "example": "customers" }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "example": "CUST-100001" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "type": "object" } } }
+        },
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Record not found" }
+        }
+      },
+      "delete": {
+        "summary": "Delete a record",
+        "parameters": [
+          {
+            "name": "entity",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "example": "customers" }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "example": "CUST-100001" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Deleted" },
+          "404": { "description": "Record not found" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Customer": {
+        "type": "object",
+        "required": ["customer_id"],
+        "properties": {
+          "customer_id": { "type": "string" },
+          "profile": { "type": "object" },
+          "contact": { "type": "object" },
+          "addresses": { "type": "object" },
+          "verification": { "type": "object" },
+          "account": { "type": "object" },
+          "preferences": { "type": "object" },
+          "summary": { "type": "object" },
+          "metadata": { "type": "object" }
+        }
+      }
+    }
+  }
+}

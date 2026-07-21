@@ -1,0 +1,74 @@
+[
+  {
+    "customer_id": "CUST-100001",
+
+    "profile": {
+      "first_name": "Erika",
+      "last_name": "Muirbrook",
+      "full_name": "Erika Muirbrook",
+      "date_of_birth": null,
+      "preferred_language": "English",
+      "preferred_channel": "Phone",
+      "timezone": "America/Denver"
+    },
+
+    "contact": {
+      "primary_phone": "8016289922",
+      "alternate_phone": "3855551234",
+      "email": "erikastewart2418@gmail.com"
+    },
+
+    "addresses": {
+      "shipping": {
+        "address1": "1391 Carriage Chase Dr",
+        "address2": "",
+        "city": "Kaysville",
+        "state": "UT",
+        "zip": "84037",
+        "country": "US"
+      },
+      "billing": {
+        "address1": "1391 Carriage Chase Dr",
+        "address2": "",
+        "city": "Kaysville",
+        "state": "UT",
+        "zip": "84037",
+        "country": "US"
+      }
+    },
+
+    "verification": {
+      "verification_methods": ["phone", "zip", "last_name", "email"],
+      "phone_verified": true,
+      "email_verified": true
+    },
+
+    "account": {
+      "account_status": "Active",
+      "customer_since": "2023-08-12",
+      "vip_customer": false,
+      "high_value_customer": false,
+      "fraud_watch": false,
+      "account_locked": false
+    },
+
+    "preferences": {
+      "marketing_opt_in": true,
+      "sms_opt_in": false,
+      "email_opt_in": true
+    },
+
+    "summary": {
+      "total_orders": 14,
+      "last_order_number": "M40CQ3JW",
+      "last_order_date": "2026-04-23",
+      "open_orders": 1
+    },
+
+    "metadata": {
+      "crm": "IQ Shop",
+      "created_at": "2023-08-12T11:43:00Z",
+      "updated_at": "2026-05-08T15:22:00Z"
+    }
+  }
+]
