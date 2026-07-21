@@ -27,4 +27,7 @@ test("addBusinessDays and businessDaysBetween are inverses", () => {
 test("invalid date strings throw", () => {
   assert.throws(() => addBusinessDays("not-a-date", 1));
   assert.throws(() => businessDaysBetween("2026-01-05", "not-a-date"));
+  // Calendar-invalid dates (e.g. Feb 30) that roll over also throw
+  assert.throws(() => addBusinessDays("2026-02-30", 1));
+  assert.throws(() => businessDaysBetween("2026-02-30", "2026-03-01"));
 });

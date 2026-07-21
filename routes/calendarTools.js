@@ -1,6 +1,9 @@
 const express = require("express");
 const { addBusinessDays, businessDaysBetween } = require("../lib/calendar");
 
+// Note: This tool has no auth required (generic utility, not customer data).
+// Business-day math skips weekends only, not holidays (documented simplification).
+
 const router = express.Router();
 
 router.post("/add-business-days", (req, res) => {
