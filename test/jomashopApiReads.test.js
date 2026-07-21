@@ -66,7 +66,7 @@ test("GetOrderDetailForPhoneAIByOrderNo returns 404 for unknown order", async ()
 test("all /api/* routes require auth", async () => {
   const { server, base } = startServer();
   try {
-    const res = await fetch(`${base}/api/GetOrderDetailForPhoneAIByOrderNo?orderno=ORD-SAMPLE-0001`, {
+    const res = await fetch(`${base}/api/GetOrderDetailForPhoneAIByOrderNo?orderno=ORD-APR-APPROVED`, {
       method: "POST",
     });
     assert.equal(res.status, 401);

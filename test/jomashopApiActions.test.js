@@ -116,7 +116,7 @@ test("AddNurixAICallLog stores the call log with the exact shared field names", 
   try {
     const res = await post(base, "AddNurixAICallLog", {
       PhoneNo: "7875551235",
-      OrderNo: "ORD-SAMPLE-0001",
+      OrderNo: "ORD-APR-APPROVED",
       ItemNo: "",
       Email: "",
       Transcript: "User called requesting status. AI provided tracking info.",
@@ -125,7 +125,7 @@ test("AddNurixAICallLog stores the call log with the exact shared field names", 
     assert.equal(res.status, 201);
     const body = await res.json();
     assert.equal(body.Solved, true);
-    assert.equal(body.OrderNo, "ORD-SAMPLE-0001");
+    assert.equal(body.OrderNo, "ORD-APR-APPROVED");
   } finally {
     server.close();
   }
@@ -147,7 +147,7 @@ test("CancelOrderForPhoneAI returns 400 without orderno and 404 for an unknown o
 test("RaiseZendeskTicket returns 400 without orderno/type and 404 for an unknown order", async () => {
   const { server, base } = startServer();
   try {
-    let res = await post(base, "RaiseZendeskTicket", { orderno: "ORD-SAMPLE-0001" });
+    let res = await post(base, "RaiseZendeskTicket", { orderno: "ORD-APR-APPROVED" });
     assert.equal(res.status, 400);
 
     res = await post(base, "RaiseZendeskTicket", {
@@ -225,7 +225,7 @@ test("action routes require auth", async () => {
     const res = await fetch(`${base}/api/CancelOrderForPhoneAI`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ orderno: "ORD-SAMPLE-0001" }),
+      body: JSON.stringify({ orderno: "ORD-APR-APPROVED" }),
     });
     assert.equal(res.status, 401);
   } finally {
