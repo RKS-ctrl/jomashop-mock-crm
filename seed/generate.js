@@ -1,0 +1,209 @@
+const fs = require("fs");
+const path = require("path");
+
+function isoDate(date) {
+  return date.toISOString().slice(0, 10);
+}
+
+function businessDaysAgo(n) {
+  const date = new Date();
+  let remaining = n;
+  while (remaining > 0) {
+    date.setUTCDate(date.getUTCDate() - 1);
+    const day = date.getUTCDay();
+    if (day !== 0 && day !== 6) remaining -= 1;
+  }
+  return isoDate(date);
+}
+
+function calendarDaysAgo(n) {
+  const date = new Date();
+  date.setUTCDate(date.getUTCDate() - n);
+  return isoDate(date);
+}
+
+const BASE_ITEM = [{ sku: "WATCH-1000", name: "Example Watch", price: 500 }];
+
+const NO_SHIPMENT = {
+  shipped: false,
+  ship_date: null,
+  tracking_number: null,
+  tracking_status: null,
+  last_movement_date: null,
+  delivered_date: null,
+};
+
+function order(overrides) {
+  return {
+    order_number: overrides.order_number,
+    customer_id: overrides.customer_id || "CUST-100001",
+    order_datetime: overrides.order_datetime || `${businessDaysAgo(1)}T10:00:00-04:00`,
+    order_value: overrides.order_value !== undefined ? overrides.order_value : 500,
+    approval_status: overrides.approval_status || "Approved",
+    item_status: overrides.item_status || "Open",
+    shipping_availability_text:
+      overrides.shipping_availability_text || "Usually Ships in 3-5 Business Days",
+    shipping_method: overrides.shipping_method || "Standard",
+    payment_hold: overrides.payment_hold || false,
+    extend_protection: overrides.extend_protection || false,
+    exception_flag: false,
+    items: overrides.items || BASE_ITEM,
+    shipment: overrides.shipment || NO_SHIPMENT,
+  };
+}
+
+function shippedShipment({ shipDaysAgo, trackingStatus, lastMovementDaysAgo, deliveredDaysAgo, trackingNumber }) {
+  return {
+    shipped: true,
+    ship_date: businessDaysAgo(shipDaysAgo),
+    tracking_number: trackingNumber,
+    tracking_status: trackingStatus,
+    last_movement_date: businessDaysAgo(lastMovementDaysAgo !== undefined ? lastMovementDaysAgo : shipDaysAgo),
+    delivered_date: deliveredDaysAgo !== undefined ? calendarDaysAgo(deliveredDaysAgo) : null,
+  };
+}
+
+const orders = [
+  // --- Section 4.2 Approval Status branches (8) ---
+  order({ order_number: "ORD-APR-APPROVED", approval_status: "Approved", item_status: "Open" }),
+  order({
+    order_number: "ORD-APR-PENDING-INWINDOW",
+    approval_status: "Pending",
+    order_datetime: `${businessDaysAgo(1)}T10:00:00-04:00`,
+    shipping_availability_text: "Order under review - typically resolved within 2 business days",
+  }),
+  order({
+    order_number: "ORD-APR-PENDING-PASTWINDOW",
+    approval_status: "Pending",
+    order_datetime: `${businessDaysAgo(6)}T10:00:00-04:00`,
+    shipping_availability_text: "Order under review - typically resolved within 2 business days",
+  }),
+  order({ order_number: "ORD-APR-DECLINED", approval_status: "Declined" }),
+  order({
+    order_number: "ORD-APR-BACKORDERED-INWINDOW",
+    approval_status: "BackOrdered",
+    order_datetime: `${businessDaysAgo(2)}T10:00:00-04:00`,
+    shipping_availability_text: "Usually Ships in 10-15 Business Days",
+  }),
+  order({
+    order_number: "ORD-APR-BACKORDERED-PASTWINDOW",
+    approval_status: "BackOrdered",
+    order_datetime: `${businessDaysAgo(20)}T10:00:00-04:00`,
+    shipping_availability_text: "Usually Ships in 10-15 Business Days",
+  }),
+  order({
+    order_number: "ORD-APR-NONE-INWINDOW",
+    approval_status: "None",
+    order_datetime: `${businessDaysAgo(1)}T10:00:00-04:00`,
+  }),
+  order({
+    order_number: "ORD-APR-NONE-PASTDUE",
+    approval_status: "None",
+    order_datetime: `${businessDaysAgo(8)}T10:00:00-04:00`,
+  }),
+
+  // --- Section 4.3 Item Status branches (7) + payment-hold variants (3) ---
+  order({ order_number: "ORD-ITEM-OPEN", item_status: "Open" }),
+  order({ order_number: "ORD-ITEM-PICKED", item_status: "Picked" }),
+  order({ order_number: "ORD-ITEM-PARTIAL-PICKED", item_status: "Partial Picked" }),
+  order({ order_number: "ORD-ITEM-PICKED-DROP", item_status: "Picked Drop" }),
+  order({ order_number: "ORD-ITEM-COMEIN-DROP", item_status: "ComeIn Drop" }),
+  order({ order_number: "ORD-ITEM-CANCELED", item_status: "Canceled" }),
+  order({
+    order_number: "ORD-ITEM-CLOSED",
+    item_status: "Closed",
+    shipment: shippedShipment({ shipDaysAgo: 10, trackingStatus: "delivered", lastMovementDaysAgo: 8, trackingNumber: "1Z0000000TESTCLOSED" }),
+  }),
+  order({ order_number: "ORD-HOLD-OPEN", item_status: "Open", payment_hold: true }),
+  order({ order_number: "ORD-HOLD-PICKED", item_status: "Picked", payment_hold: true }),
+  order({
+    order_number: "ORD-HOLD-CLOSED",
+    item_status: "Closed",
+    payment_hold: true,
+    shipment: shippedShipment({ shipDaysAgo: 10, trackingStatus: "delivered", lastMovementDaysAgo: 8, trackingNumber: "1Z0000000TESTHOLD" }),
+  }),
+
+  // --- Section 5 Cancellation branches (7) ---
+  order({ order_number: "ORD-CANCEL-OVER2000", order_value: 2500, item_status: "Open" }),
+  order({ order_number: "ORD-CANCEL-UNDER-OPEN", order_value: 500, item_status: "Open" }),
+  order({ order_number: "ORD-CANCEL-UNDER-PICKED", order_value: 500, item_status: "Picked" }),
+  order({ order_number: "ORD-CANCEL-UNDER-PARTIAL-PICKED", order_value: 500, item_status: "Partial Picked" }),
+  order({ order_number: "ORD-CANCEL-UNDER-PICKED-DROP", order_value: 500, item_status: "Picked Drop" }),
+  order({ order_number: "ORD-CANCEL-UNDER-COMEIN-DROP", order_value: 500, item_status: "ComeIn Drop" }),
+  order({
+    order_number: "ORD-CANCEL-UNDER-CLOSED",
+    order_value: 500,
+    item_status: "Closed",
+    shipment: shippedShipment({ shipDaysAgo: 5, trackingStatus: "delivered", lastMovementDaysAgo: 4, trackingNumber: "1Z0000000TESTCANCELCLOSED" }),
+  }),
+
+  // --- Section 6 Returns branches (3) ---
+  order({
+    order_number: "ORD-RMA-UNDER-FIRST",
+    order_value: 500,
+    item_status: "Closed",
+    shipment: shippedShipment({ shipDaysAgo: 10, trackingStatus: "delivered", lastMovementDaysAgo: 9, trackingNumber: "1Z0000000TESTRMA1" }),
+  }),
+  order({
+    order_number: "ORD-RMA-UNDER-REPEAT",
+    order_value: 500,
+    item_status: "Closed",
+    shipment: shippedShipment({ shipDaysAgo: 20, trackingStatus: "delivered", lastMovementDaysAgo: 19, trackingNumber: "1Z0000000TESTRMA2" }),
+  }),
+  order({
+    order_number: "ORD-RMA-OVER2000",
+    order_value: 3000,
+    item_status: "Closed",
+    shipment: shippedShipment({ shipDaysAgo: 10, trackingStatus: "delivered", lastMovementDaysAgo: 9, trackingNumber: "1Z0000000TESTRMA3" }),
+  }),
+
+  // --- Section 7 Shipping Delay branches (5) ---
+  order({
+    order_number: "ORD-DELAY-EXTEND-NOMOVEMENT",
+    item_status: "Closed",
+    extend_protection: true,
+    shipment: shippedShipment({ shipDaysAgo: 5, trackingStatus: "no_movement", trackingNumber: "1Z0000000TESTDELAY1" }),
+  }),
+  order({
+    order_number: "ORD-DELAY-NOEXTEND-UNDER7",
+    item_status: "Closed",
+    extend_protection: false,
+    shipment: shippedShipment({ shipDaysAgo: 3, trackingStatus: "no_movement", trackingNumber: "1Z0000000TESTDELAY2" }),
+  }),
+  order({
+    order_number: "ORD-DELAY-NOEXTEND-OVER7",
+    item_status: "Closed",
+    extend_protection: false,
+    shipment: shippedShipment({ shipDaysAgo: 9, trackingStatus: "no_movement", trackingNumber: "1Z0000000TESTDELAY3" }),
+  }),
+  order({
+    order_number: "ORD-DELAY-EXTEND-NOTRECEIVED",
+    item_status: "Closed",
+    extend_protection: true,
+    shipment: shippedShipment({ shipDaysAgo: 6, trackingStatus: "delivered", lastMovementDaysAgo: 3, deliveredDaysAgo: 2, trackingNumber: "1Z0000000TESTDELAY4" }),
+  }),
+  order({
+    order_number: "ORD-DELAY-NOEXTEND-NOTRECEIVED",
+    item_status: "Closed",
+    extend_protection: false,
+    shipment: shippedShipment({ shipDaysAgo: 6, trackingStatus: "delivered", lastMovementDaysAgo: 3, deliveredDaysAgo: 2, trackingNumber: "1Z0000000TESTDELAY5" }),
+  }),
+];
+
+const rmaRecords = [
+  {
+    rma_id: "RMA-5001",
+    order_number: "ORD-RMA-UNDER-REPEAT",
+    reason: "Missing manual documentation from a prior return",
+    created_at: `${businessDaysAgo(15)}T00:00:00Z`,
+  },
+];
+
+module.exports = { orders, rmaRecords };
+
+if (require.main === module) {
+  const seedDir = __dirname;
+  fs.writeFileSync(path.join(seedDir, "orders.json"), JSON.stringify(orders, null, 2));
+  fs.writeFileSync(path.join(seedDir, "rma.json"), JSON.stringify(rmaRecords, null, 2));
+  console.log(`Wrote ${orders.length} orders to seed/orders.json and ${rmaRecords.length} rma record(s) to seed/rma.json`);
+}

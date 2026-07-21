@@ -1,8 +1,8 @@
 [
   {
-    "order_number": "ORD-SAMPLE-0001",
+    "order_number": "ORD-APR-APPROVED",
     "customer_id": "CUST-100001",
-    "order_datetime": "2026-07-15T10:00:00-04:00",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
     "order_value": 500,
     "approval_status": "Approved",
     "item_status": "Open",
@@ -11,7 +11,13 @@
     "payment_hold": false,
     "extend_protection": false,
     "exception_flag": false,
-    "items": [{ "sku": "WATCH-1000", "name": "Example Watch", "price": 500 }],
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
     "shipment": {
       "shipped": false,
       "ship_date": null,
@@ -19,6 +25,902 @@
       "tracking_status": null,
       "last_movement_date": null,
       "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-APR-PENDING-INWINDOW",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Pending",
+    "item_status": "Open",
+    "shipping_availability_text": "Order under review - typically resolved within 2 business days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-APR-PENDING-PASTWINDOW",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-13T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Pending",
+    "item_status": "Open",
+    "shipping_availability_text": "Order under review - typically resolved within 2 business days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-APR-DECLINED",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Declined",
+    "item_status": "Open",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-APR-BACKORDERED-INWINDOW",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-17T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "BackOrdered",
+    "item_status": "Open",
+    "shipping_availability_text": "Usually Ships in 10-15 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-APR-BACKORDERED-PASTWINDOW",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-06-23T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "BackOrdered",
+    "item_status": "Open",
+    "shipping_availability_text": "Usually Ships in 10-15 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-APR-NONE-INWINDOW",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "None",
+    "item_status": "Open",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-APR-NONE-PASTDUE",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-09T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "None",
+    "item_status": "Open",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-ITEM-OPEN",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Open",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-ITEM-PICKED",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Picked",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-ITEM-PARTIAL-PICKED",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Partial Picked",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-ITEM-PICKED-DROP",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Picked Drop",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-ITEM-COMEIN-DROP",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "ComeIn Drop",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-ITEM-CANCELED",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Canceled",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-ITEM-CLOSED",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Closed",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": true,
+      "ship_date": "2026-07-07",
+      "tracking_number": "1Z0000000TESTCLOSED",
+      "tracking_status": "delivered",
+      "last_movement_date": "2026-07-09",
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-HOLD-OPEN",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Open",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": true,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-HOLD-PICKED",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Picked",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": true,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-HOLD-CLOSED",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Closed",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": true,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": true,
+      "ship_date": "2026-07-07",
+      "tracking_number": "1Z0000000TESTHOLD",
+      "tracking_status": "delivered",
+      "last_movement_date": "2026-07-09",
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-CANCEL-OVER2000",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 2500,
+    "approval_status": "Approved",
+    "item_status": "Open",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-CANCEL-UNDER-OPEN",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Open",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-CANCEL-UNDER-PICKED",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Picked",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-CANCEL-UNDER-PARTIAL-PICKED",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Partial Picked",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-CANCEL-UNDER-PICKED-DROP",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Picked Drop",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-CANCEL-UNDER-COMEIN-DROP",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "ComeIn Drop",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": false,
+      "ship_date": null,
+      "tracking_number": null,
+      "tracking_status": null,
+      "last_movement_date": null,
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-CANCEL-UNDER-CLOSED",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Closed",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": true,
+      "ship_date": "2026-07-14",
+      "tracking_number": "1Z0000000TESTCANCELCLOSED",
+      "tracking_status": "delivered",
+      "last_movement_date": "2026-07-15",
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-RMA-UNDER-FIRST",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Closed",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": true,
+      "ship_date": "2026-07-07",
+      "tracking_number": "1Z0000000TESTRMA1",
+      "tracking_status": "delivered",
+      "last_movement_date": "2026-07-08",
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-RMA-UNDER-REPEAT",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Closed",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": true,
+      "ship_date": "2026-06-23",
+      "tracking_number": "1Z0000000TESTRMA2",
+      "tracking_status": "delivered",
+      "last_movement_date": "2026-06-24",
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-RMA-OVER2000",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 3000,
+    "approval_status": "Approved",
+    "item_status": "Closed",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": true,
+      "ship_date": "2026-07-07",
+      "tracking_number": "1Z0000000TESTRMA3",
+      "tracking_status": "delivered",
+      "last_movement_date": "2026-07-08",
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-DELAY-EXTEND-NOMOVEMENT",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Closed",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": true,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": true,
+      "ship_date": "2026-07-14",
+      "tracking_number": "1Z0000000TESTDELAY1",
+      "tracking_status": "no_movement",
+      "last_movement_date": "2026-07-14",
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-DELAY-NOEXTEND-UNDER7",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Closed",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": true,
+      "ship_date": "2026-07-16",
+      "tracking_number": "1Z0000000TESTDELAY2",
+      "tracking_status": "no_movement",
+      "last_movement_date": "2026-07-16",
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-DELAY-NOEXTEND-OVER7",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Closed",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": true,
+      "ship_date": "2026-07-08",
+      "tracking_number": "1Z0000000TESTDELAY3",
+      "tracking_status": "no_movement",
+      "last_movement_date": "2026-07-08",
+      "delivered_date": null
+    }
+  },
+  {
+    "order_number": "ORD-DELAY-EXTEND-NOTRECEIVED",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Closed",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": true,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": true,
+      "ship_date": "2026-07-13",
+      "tracking_number": "1Z0000000TESTDELAY4",
+      "tracking_status": "delivered",
+      "last_movement_date": "2026-07-16",
+      "delivered_date": "2026-07-19"
+    }
+  },
+  {
+    "order_number": "ORD-DELAY-NOEXTEND-NOTRECEIVED",
+    "customer_id": "CUST-100001",
+    "order_datetime": "2026-07-20T10:00:00-04:00",
+    "order_value": 500,
+    "approval_status": "Approved",
+    "item_status": "Closed",
+    "shipping_availability_text": "Usually Ships in 3-5 Business Days",
+    "shipping_method": "Standard",
+    "payment_hold": false,
+    "extend_protection": false,
+    "exception_flag": false,
+    "items": [
+      {
+        "sku": "WATCH-1000",
+        "name": "Example Watch",
+        "price": 500
+      }
+    ],
+    "shipment": {
+      "shipped": true,
+      "ship_date": "2026-07-13",
+      "tracking_number": "1Z0000000TESTDELAY5",
+      "tracking_status": "delivered",
+      "last_movement_date": "2026-07-16",
+      "delivered_date": "2026-07-19"
     }
   }
 ]

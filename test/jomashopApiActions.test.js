@@ -31,7 +31,7 @@ async function post(base, path, body) {
 test("CancelOrderForPhoneAI sets item_status to Canceled unconditionally", async () => {
   const { server, base } = startServer();
   try {
-    const res = await post(base, "CancelOrderForPhoneAI", { orderno: "ORD-SAMPLE-0001" });
+    const res = await post(base, "CancelOrderForPhoneAI", { orderno: "ORD-APR-APPROVED" });
     assert.equal(res.status, 200);
     const body = await res.json();
     assert.equal(body.item_status, "Canceled");
@@ -44,7 +44,7 @@ test("RaiseZendeskTicket creates a ticket and, with exception:true, flags the or
   const { server, base } = startServer();
   try {
     const res = await post(base, "RaiseZendeskTicket", {
-      orderno: "ORD-SAMPLE-0001",
+      orderno: "ORD-APR-APPROVED",
       type: "Cancellation Exception - High Value",
       reason: "customer request cancellation",
       raised_by: "voice_agent",
@@ -55,7 +55,7 @@ test("RaiseZendeskTicket creates a ticket and, with exception:true, flags the or
     assert.equal(ticket.type, "Cancellation Exception - High Value");
     assert.ok(ticket.ticket_id);
 
-    const detail = await post(base, "GetOrderDetailForPhoneAIByOrderNo?orderno=ORD-SAMPLE-0001");
+    const detail = await post(base, "GetOrderDetailForPhoneAIByOrderNo?orderno=ORD-APR-APPROVED");
     const order = await detail.json();
     assert.equal(order.exception_flag, true);
   } finally {
@@ -66,8 +66,8 @@ test("RaiseZendeskTicket creates a ticket and, with exception:true, flags the or
 test("CreateRMAForOrderAI then GetRMAHistoryByOrderNo reflects it", async () => {
   const { server, base } = startServer();
   try {
-    await post(base, "CreateRMAForOrderAI", { orderno: "ORD-SAMPLE-0001", reason: "wrong size" });
-    const res = await post(base, "GetRMAHistoryByOrderNo?orderno=ORD-SAMPLE-0001");
+    await post(base, "CreateRMAForOrderAI", { orderno: "ORD-APR-APPROVED", reason: "wrong size" });
+    const res = await post(base, "GetRMAHistoryByOrderNo?orderno=ORD-APR-APPROVED");
     assert.equal(res.status, 200);
     const body = await res.json();
     assert.equal(body.rma_count, 1);
@@ -81,12 +81,12 @@ test("GetTicketsByOrderNo returns tickets raised for that order", async () => {
   const { server, base } = startServer();
   try {
     await post(base, "RaiseZendeskTicket", {
-      orderno: "ORD-SAMPLE-0001",
+      orderno: "ORD-APR-APPROVED",
       type: "Order Decline Review",
       reason: "order declined",
       raised_by: "voice_agent",
     });
-    const res = await post(base, "GetTicketsByOrderNo?orderno=ORD-SAMPLE-0001");
+    const res = await post(base, "GetTicketsByOrderNo?orderno=ORD-APR-APPROVED");
     const body = await res.json();
     assert.equal(body.tickets.length, 1);
     assert.equal(body.tickets[0].type, "Order Decline Review");
@@ -99,11 +99,11 @@ test("SendExtendClaimEmailAI records an extend_claims entry, not a ticket", asyn
   const { server, base } = startServer();
   try {
     const res = await post(base, "SendExtendClaimEmailAI", {
-      orderno: "ORD-SAMPLE-0001",
+      orderno: "ORD-APR-APPROVED",
       reason: "no movement, has Extend",
     });
     assert.equal(res.status, 201);
-    const ticketsRes = await post(base, "GetTicketsByOrderNo?orderno=ORD-SAMPLE-0001");
+    const ticketsRes = await post(base, "GetTicketsByOrderNo?orderno=ORD-APR-APPROVED");
     const ticketsBody = await ticketsRes.json();
     assert.equal(ticketsBody.tickets.length, 0);
   } finally {

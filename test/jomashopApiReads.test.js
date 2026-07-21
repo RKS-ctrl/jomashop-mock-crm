@@ -78,13 +78,13 @@ test("all /api/* routes require auth", async () => {
 test("GetOrderDetailForPhoneAIByOrderNo returns order detail for valid order number", async () => {
   const { server, base } = startServer();
   try {
-    const res = await fetch(`${base}/api/GetOrderDetailForPhoneAIByOrderNo?orderno=ORD-SAMPLE-0001`, {
+    const res = await fetch(`${base}/api/GetOrderDetailForPhoneAIByOrderNo?orderno=ORD-APR-APPROVED`, {
       method: "POST",
       headers: { Authorization: AUTH },
     });
     assert.equal(res.status, 200);
     const body = await res.json();
-    assert.equal(body.order_number, "ORD-SAMPLE-0001");
+    assert.equal(body.order_number, "ORD-APR-APPROVED");
     assert.equal(body.customer_id, "CUST-100001");
   } finally {
     server.close();

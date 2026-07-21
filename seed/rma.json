@@ -1,0 +1,8 @@
+[
+  {
+    "rma_id": "RMA-5001",
+    "order_number": "ORD-RMA-UNDER-REPEAT",
+    "reason": "Missing manual documentation from a prior return",
+    "created_at": "2026-06-30T00:00:00Z"
+  }
+]
