@@ -74,3 +74,93 @@ test("all /api/* routes require auth", async () => {
     server.close();
   }
 });
+
+test("GetOrderDetailForPhoneAIByOrderNo returns order detail for valid order number", async () => {
+  const { server, base } = startServer();
+  try {
+    const res = await fetch(`${base}/api/GetOrderDetailForPhoneAIByOrderNo?orderno=ORD-SAMPLE-0001`, {
+      method: "POST",
+      headers: { Authorization: AUTH },
+    });
+    assert.equal(res.status, 200);
+    const body = await res.json();
+    assert.equal(body.order_number, "ORD-SAMPLE-0001");
+    assert.equal(body.customer_id, "CUST-100001");
+  } finally {
+    server.close();
+  }
+});
+
+test("GetOrdersForPhoneAIByPhoneNo returns 404 for unknown phone", async () => {
+  const { server, base } = startServer();
+  try {
+    const res = await fetch(`${base}/api/GetOrdersForPhoneAIByPhoneNo?phoneno=0000000000`, {
+      method: "POST",
+      headers: { Authorization: AUTH },
+    });
+    assert.equal(res.status, 404);
+  } finally {
+    server.close();
+  }
+});
+
+test("GetOrdersForEmailAI returns 404 for unknown email", async () => {
+  const { server, base } = startServer();
+  try {
+    const res = await fetch(`${base}/api/GetOrdersForEmailAI?email=nobody@example.com`, {
+      method: "POST",
+      headers: { Authorization: AUTH },
+    });
+    assert.equal(res.status, 404);
+  } finally {
+    server.close();
+  }
+});
+
+test("GetOrdersForNameAI returns 404 for unknown name", async () => {
+  const { server, base } = startServer();
+  try {
+    const res = await fetch(`${base}/api/GetOrdersForNameAI?name=Nobody Here`, {
+      method: "POST",
+      headers: { Authorization: AUTH },
+    });
+    assert.equal(res.status, 404);
+  } finally {
+    server.close();
+  }
+});
+
+test("missing query param returns 400 for all four routes", async () => {
+  const { server, base } = startServer();
+  try {
+    // GetOrdersForPhoneAIByPhoneNo without phoneno
+    let res = await fetch(`${base}/api/GetOrdersForPhoneAIByPhoneNo`, {
+      method: "POST",
+      headers: { Authorization: AUTH },
+    });
+    assert.equal(res.status, 400);
+
+    // GetOrdersForEmailAI without email
+    res = await fetch(`${base}/api/GetOrdersForEmailAI`, {
+      method: "POST",
+      headers: { Authorization: AUTH },
+    });
+    assert.equal(res.status, 400);
+
+    // GetOrdersForNameAI without name
+    res = await fetch(`${base}/api/GetOrdersForNameAI`, {
+      method: "POST",
+      headers: { Authorization: AUTH },
+    });
+    assert.equal(res.status, 400);
+
+    // GetOrderDetailForPhoneAIByOrderNo without orderno
+    res = await fetch(`${base}/api/GetOrderDetailForPhoneAIByOrderNo`, {
+      method: "POST",
+      headers: { Authorization: AUTH },
+    });
+    assert.equal(res.status, 400);
+  } finally {
+    server.close();
+  }
+});
