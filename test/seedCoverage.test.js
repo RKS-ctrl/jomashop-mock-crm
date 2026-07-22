@@ -12,14 +12,14 @@ test("generates exactly 33 orders", () => {
 
 test("covers every Approval Status branch (Section 4.2)", () => {
   for (const id of [
-    "ORD-APR-APPROVED",
-    "ORD-APR-PENDING-INWINDOW",
-    "ORD-APR-PENDING-PASTWINDOW",
-    "ORD-APR-DECLINED",
-    "ORD-APR-BACKORDERED-INWINDOW",
-    "ORD-APR-BACKORDERED-PASTWINDOW",
-    "ORD-APR-NONE-INWINDOW",
-    "ORD-APR-NONE-PASTDUE",
+    "MD43553K",
+    "MD91827L",
+    "MD91828L",
+    "MK55214P",
+    "MK77302R",
+    "MK77303R",
+    "MN20456T",
+    "MN20457T",
   ]) {
     assert.ok(find(id), `missing seed order ${id}`);
   }
@@ -27,32 +27,32 @@ test("covers every Approval Status branch (Section 4.2)", () => {
 
 test("covers every Item Status branch plus payment-hold variants (Section 4.3)", () => {
   for (const id of [
-    "ORD-ITEM-OPEN",
-    "ORD-ITEM-PICKED",
-    "ORD-ITEM-PARTIAL-PICKED",
-    "ORD-ITEM-PICKED-DROP",
-    "ORD-ITEM-COMEIN-DROP",
-    "ORD-ITEM-CANCELED",
-    "ORD-ITEM-CLOSED",
-    "ORD-HOLD-OPEN",
-    "ORD-HOLD-PICKED",
-    "ORD-HOLD-CLOSED",
+    "MP63821W",
+    "MP63822W",
+    "MP63823W",
+    "MP63824W",
+    "MP63825W",
+    "MP63826W",
+    "MP63827W",
+    "MQ48213X",
+    "MQ48214X",
+    "MQ48215X",
   ]) {
     assert.ok(find(id), `missing seed order ${id}`);
   }
-  assert.equal(find("ORD-HOLD-OPEN").payment_hold, true);
+  assert.equal(find("MQ48213X").payment_hold, true);
 });
 
 test("covers every Cancellation branch (Section 5)", () => {
-  const over = find("ORD-CANCEL-OVER2000");
+  const over = find("MR39561Y");
   assert.ok(over.order_value > 2000);
   for (const id of [
-    "ORD-CANCEL-UNDER-OPEN",
-    "ORD-CANCEL-UNDER-PICKED",
-    "ORD-CANCEL-UNDER-PARTIAL-PICKED",
-    "ORD-CANCEL-UNDER-PICKED-DROP",
-    "ORD-CANCEL-UNDER-COMEIN-DROP",
-    "ORD-CANCEL-UNDER-CLOSED",
+    "MR39562Y",
+    "MR39563Y",
+    "MR39564Y",
+    "MR39565Y",
+    "MR39566Y",
+    "MR39567Y",
   ]) {
     const order = find(id);
     assert.ok(order, `missing seed order ${id}`);
@@ -61,23 +61,23 @@ test("covers every Cancellation branch (Section 5)", () => {
 });
 
 test("covers every Returns branch (Section 6), repeat-RMA order has a pre-existing rma record", () => {
-  assert.ok(find("ORD-RMA-UNDER-FIRST").order_value < 2000);
-  assert.ok(find("ORD-RMA-UNDER-REPEAT").order_value < 2000);
-  assert.ok(find("ORD-RMA-OVER2000").order_value > 2000);
+  assert.ok(find("MS72904Z").order_value < 2000);
+  assert.ok(find("MS72905Z").order_value < 2000);
+  assert.ok(find("MS72906Z").order_value > 2000);
 
   const { rmaRecords } = require("../seed/generate");
-  assert.ok(rmaRecords.some((r) => r.order_number === "ORD-RMA-UNDER-REPEAT"));
+  assert.ok(rmaRecords.some((r) => r.order_number === "MS72905Z"));
 });
 
 test("covers every Shipping Delay branch (Section 7)", () => {
-  const extendNoMovement = find("ORD-DELAY-EXTEND-NOMOVEMENT");
+  const extendNoMovement = find("MT85017A");
   assert.equal(extendNoMovement.extend_protection, true);
   assert.equal(extendNoMovement.shipment.tracking_status, "no_movement");
 
-  const under7 = find("ORD-DELAY-NOEXTEND-UNDER7");
+  const under7 = find("MT85018A");
   assert.equal(under7.extend_protection, false);
 
-  const over7 = find("ORD-DELAY-NOEXTEND-OVER7");
+  const over7 = find("MT85019A");
   assert.equal(over7.extend_protection, false);
 
   const { businessDaysBetween } = require("../lib/calendar");
@@ -85,7 +85,7 @@ test("covers every Shipping Delay branch (Section 7)", () => {
   assert.ok(businessDaysBetween(under7.shipment.ship_date, today) < 7);
   assert.ok(businessDaysBetween(over7.shipment.ship_date, today) >= 7);
 
-  for (const id of ["ORD-DELAY-EXTEND-NOTRECEIVED", "ORD-DELAY-NOEXTEND-NOTRECEIVED"]) {
+  for (const id of ["MT85020A", "MT85021A"]) {
     const order = find(id);
     assert.equal(order.shipment.tracking_status, "delivered");
     assert.ok(order.shipment.delivered_date);

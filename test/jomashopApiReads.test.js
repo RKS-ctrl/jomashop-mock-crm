@@ -83,7 +83,7 @@ test("GetOrderDetailForPhoneAIByOrderNo returns 404 for unknown order", async ()
 test("all /api/* routes require auth", async () => {
   const { server, base } = startServer();
   try {
-    const res = await fetch(`${base}/api/GetOrderDetailForPhoneAIByOrderNo?orderno=ORD-APR-APPROVED`, {
+    const res = await fetch(`${base}/api/GetOrderDetailForPhoneAIByOrderNo?orderno=MD43553K`, {
       method: "POST",
     });
     assert.equal(res.status, 401);
@@ -95,13 +95,13 @@ test("all /api/* routes require auth", async () => {
 test("GetOrderDetailForPhoneAIByOrderNo returns order detail for valid order number", async () => {
   const { server, base } = startServer();
   try {
-    const res = await fetch(`${base}/api/GetOrderDetailForPhoneAIByOrderNo?orderno=ORD-APR-APPROVED`, {
+    const res = await fetch(`${base}/api/GetOrderDetailForPhoneAIByOrderNo?orderno=MD43553K`, {
       method: "POST",
       headers: { Authorization: AUTH },
     });
     assert.equal(res.status, 200);
     const body = await res.json();
-    assert.equal(body.order_number, "ORD-APR-APPROVED");
+    assert.equal(body.order_number, "MD43553K");
     assert.equal(body.customer_id, "CUST-100001");
   } finally {
     server.close();

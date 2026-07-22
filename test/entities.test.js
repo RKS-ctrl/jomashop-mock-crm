@@ -21,7 +21,7 @@ test("GET /orders lists the seeded order", async () => {
     assert.equal(res.status, 200);
     const body = await res.json();
     assert.ok(Array.isArray(body));
-    assert.ok(body.some((o) => o.order_number === "ORD-APR-APPROVED"));
+    assert.ok(body.some((o) => o.order_number === "MD43553K"));
   } finally {
     server.close();
   }
@@ -52,7 +52,7 @@ test("GET /rma lists the seeded repeat-RMA record", async () => {
     assert.equal(res.status, 200);
     const body = await res.json();
     assert.equal(body.length, 1);
-    assert.equal(body[0].order_number, "ORD-RMA-UNDER-REPEAT");
+    assert.equal(body[0].order_number, "MS72905Z");
   } finally {
     server.close();
   }

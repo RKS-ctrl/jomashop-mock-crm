@@ -1,4 +1,4 @@
-const { orders, rmaRecords } = require("../seed/generate");
+const { orderStatusOrders, cancellationOrders, returnsOrders, shippingDelayOrders } = require("../seed/generate");
 const { CREDENTIAL } = require("../lib/auth");
 const {
   orderStatusDecision,
@@ -137,14 +137,10 @@ async function run() {
     }
   }
 
-  await runGroup(
-    "order-status",
-    orders.filter((o) => o.order_number.startsWith("ORD-APR") || o.order_number.startsWith("ORD-ITEM") || o.order_number.startsWith("ORD-HOLD")),
-    runOrderStatusScenario
-  );
-  await runGroup("cancellation", orders.filter((o) => o.order_number.startsWith("ORD-CANCEL")), runCancellationScenario);
-  await runGroup("returns", orders.filter((o) => o.order_number.startsWith("ORD-RMA")), runReturnsScenario);
-  await runGroup("shipping-delay", orders.filter((o) => o.order_number.startsWith("ORD-DELAY")), runShippingDelayScenario);
+  await runGroup("order-status", orderStatusOrders, runOrderStatusScenario);
+  await runGroup("cancellation", cancellationOrders, runCancellationScenario);
+  await runGroup("returns", returnsOrders, runReturnsScenario);
+  await runGroup("shipping-delay", shippingDelayOrders, runShippingDelayScenario);
 
   console.log(`\n${passed} passed, ${failed} failed`);
   process.exit(failed > 0 ? 1 : 0);

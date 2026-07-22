@@ -31,7 +31,7 @@ async function post(base, path, body) {
 test("CancelOrderForPhoneAI sets item_status to Canceled unconditionally", async () => {
   const { server, base } = startServer();
   try {
-    const res = await post(base, "CancelOrderForPhoneAI", { orderno: "ORD-APR-APPROVED" });
+    const res = await post(base, "CancelOrderForPhoneAI", { orderno: "MD43553K" });
     assert.equal(res.status, 200);
     const body = await res.json();
     assert.equal(body.item_status, "Canceled");
@@ -44,7 +44,7 @@ test("RaiseZendeskTicket creates a ticket and, with exception:true, flags the or
   const { server, base } = startServer();
   try {
     const res = await post(base, "RaiseZendeskTicket", {
-      orderno: "ORD-APR-APPROVED",
+      orderno: "MD43553K",
       type: "Cancellation Exception - High Value",
       reason: "customer request cancellation",
       raised_by: "voice_agent",
@@ -55,7 +55,7 @@ test("RaiseZendeskTicket creates a ticket and, with exception:true, flags the or
     assert.equal(ticket.type, "Cancellation Exception - High Value");
     assert.ok(ticket.ticket_id);
 
-    const detail = await post(base, "GetOrderDetailForPhoneAIByOrderNo?orderno=ORD-APR-APPROVED");
+    const detail = await post(base, "GetOrderDetailForPhoneAIByOrderNo?orderno=MD43553K");
     const order = await detail.json();
     assert.equal(order.exception_flag, true);
   } finally {
@@ -66,8 +66,8 @@ test("RaiseZendeskTicket creates a ticket and, with exception:true, flags the or
 test("CreateRMAForOrderAI then GetRMAHistoryByOrderNo reflects it", async () => {
   const { server, base } = startServer();
   try {
-    await post(base, "CreateRMAForOrderAI", { orderno: "ORD-APR-APPROVED", reason: "wrong size" });
-    const res = await post(base, "GetRMAHistoryByOrderNo?orderno=ORD-APR-APPROVED");
+    await post(base, "CreateRMAForOrderAI", { orderno: "MD43553K", reason: "wrong size" });
+    const res = await post(base, "GetRMAHistoryByOrderNo?orderno=MD43553K");
     assert.equal(res.status, 200);
     const body = await res.json();
     assert.equal(body.rma_count, 1);
@@ -81,12 +81,12 @@ test("GetTicketsByOrderNo returns tickets raised for that order", async () => {
   const { server, base } = startServer();
   try {
     await post(base, "RaiseZendeskTicket", {
-      orderno: "ORD-APR-APPROVED",
+      orderno: "MD43553K",
       type: "Order Decline Review",
       reason: "order declined",
       raised_by: "voice_agent",
     });
-    const res = await post(base, "GetTicketsByOrderNo?orderno=ORD-APR-APPROVED");
+    const res = await post(base, "GetTicketsByOrderNo?orderno=MD43553K");
     const body = await res.json();
     assert.equal(body.tickets.length, 1);
     assert.equal(body.tickets[0].type, "Order Decline Review");
@@ -99,11 +99,11 @@ test("SendExtendClaimEmailAI records an extend_claims entry, not a ticket", asyn
   const { server, base } = startServer();
   try {
     const res = await post(base, "SendExtendClaimEmailAI", {
-      orderno: "ORD-APR-APPROVED",
+      orderno: "MD43553K",
       reason: "no movement, has Extend",
     });
     assert.equal(res.status, 201);
-    const ticketsRes = await post(base, "GetTicketsByOrderNo?orderno=ORD-APR-APPROVED");
+    const ticketsRes = await post(base, "GetTicketsByOrderNo?orderno=MD43553K");
     const ticketsBody = await ticketsRes.json();
     assert.equal(ticketsBody.tickets.length, 0);
   } finally {
@@ -116,7 +116,7 @@ test("AddNurixAICallLog stores the call log with the exact shared field names", 
   try {
     const res = await post(base, "AddNurixAICallLog", {
       PhoneNo: "7875551235",
-      OrderNo: "ORD-APR-APPROVED",
+      OrderNo: "MD43553K",
       ItemNo: "",
       Email: "",
       Transcript: "User called requesting status. AI provided tracking info.",
@@ -125,7 +125,7 @@ test("AddNurixAICallLog stores the call log with the exact shared field names", 
     assert.equal(res.status, 201);
     const body = await res.json();
     assert.equal(body.Solved, true);
-    assert.equal(body.OrderNo, "ORD-APR-APPROVED");
+    assert.equal(body.OrderNo, "MD43553K");
   } finally {
     server.close();
   }
@@ -147,7 +147,7 @@ test("CancelOrderForPhoneAI returns 400 without orderno and 404 for an unknown o
 test("RaiseZendeskTicket returns 400 without type and 404 for an unknown order", async () => {
   const { server, base } = startServer();
   try {
-    let res = await post(base, "RaiseZendeskTicket", { orderno: "ORD-APR-APPROVED" });
+    let res = await post(base, "RaiseZendeskTicket", { orderno: "MD43553K" });
     assert.equal(res.status, 400);
 
     res = await post(base, "RaiseZendeskTicket", {
@@ -258,7 +258,7 @@ test("action routes require auth", async () => {
     const res = await fetch(`${base}/api/CancelOrderForPhoneAI`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ orderno: "ORD-APR-APPROVED" }),
+      body: JSON.stringify({ orderno: "MD43553K" }),
     });
     assert.equal(res.status, 401);
   } finally {

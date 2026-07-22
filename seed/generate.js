@@ -65,60 +65,60 @@ function shippedShipment({ shipDaysAgo, trackingStatus, lastMovementDaysAgo, del
 
 const orders = [
   // --- Section 4.2 Approval Status branches (8) ---
-  order({ order_number: "ORD-APR-APPROVED", approval_status: "Approved", item_status: "Open" }),
+  order({ order_number: "MD43553K", approval_status: "Approved", item_status: "Open" }),
   order({
-    order_number: "ORD-APR-PENDING-INWINDOW",
+    order_number: "MD91827L",
     approval_status: "Pending",
     order_datetime: `${businessDaysAgo(1)}T10:00:00-04:00`,
     shipping_availability_text: "Order under review - typically resolved within 2 business days",
   }),
   order({
-    order_number: "ORD-APR-PENDING-PASTWINDOW",
+    order_number: "MD91828L",
     approval_status: "Pending",
     order_datetime: `${businessDaysAgo(6)}T10:00:00-04:00`,
     shipping_availability_text: "Order under review - typically resolved within 2 business days",
   }),
-  order({ order_number: "ORD-APR-DECLINED", approval_status: "Declined" }),
+  order({ order_number: "MK55214P", approval_status: "Declined" }),
   order({
-    order_number: "ORD-APR-BACKORDERED-INWINDOW",
+    order_number: "MK77302R",
     approval_status: "BackOrdered",
     order_datetime: `${businessDaysAgo(2)}T10:00:00-04:00`,
     shipping_availability_text: "Usually Ships in 10-15 Business Days",
   }),
   order({
-    order_number: "ORD-APR-BACKORDERED-PASTWINDOW",
+    order_number: "MK77303R",
     approval_status: "BackOrdered",
     order_datetime: `${businessDaysAgo(20)}T10:00:00-04:00`,
     shipping_availability_text: "Usually Ships in 10-15 Business Days",
   }),
   order({
-    order_number: "ORD-APR-NONE-INWINDOW",
+    order_number: "MN20456T",
     approval_status: "None",
     order_datetime: `${businessDaysAgo(1)}T10:00:00-04:00`,
   }),
   order({
-    order_number: "ORD-APR-NONE-PASTDUE",
+    order_number: "MN20457T",
     approval_status: "None",
     order_datetime: `${businessDaysAgo(8)}T10:00:00-04:00`,
   }),
 
   // --- Section 4.3 Item Status branches (7) + payment-hold variants (3) ---
-  order({ order_number: "ORD-ITEM-OPEN", item_status: "Open" }),
-  order({ order_number: "ORD-ITEM-PICKED", item_status: "Picked" }),
-  order({ order_number: "ORD-ITEM-PARTIAL-PICKED", item_status: "Partial Picked" }),
-  order({ order_number: "ORD-ITEM-PICKED-DROP", item_status: "Picked Drop" }),
-  order({ order_number: "ORD-ITEM-COMEIN-DROP", item_status: "ComeIn Drop" }),
-  order({ order_number: "ORD-ITEM-CANCELED", item_status: "Canceled" }),
+  order({ order_number: "MP63821W", item_status: "Open" }),
+  order({ order_number: "MP63822W", item_status: "Picked" }),
+  order({ order_number: "MP63823W", item_status: "Partial Picked" }),
+  order({ order_number: "MP63824W", item_status: "Picked Drop" }),
+  order({ order_number: "MP63825W", item_status: "ComeIn Drop" }),
+  order({ order_number: "MP63826W", item_status: "Canceled" }),
   order({
-    order_number: "ORD-ITEM-CLOSED",
+    order_number: "MP63827W",
     item_status: "Closed",
     order_datetime: `${businessDaysAgo(12)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 10, trackingStatus: "delivered", lastMovementDaysAgo: 8, trackingNumber: "1Z0000000TESTCLOSED" }),
   }),
-  order({ order_number: "ORD-HOLD-OPEN", item_status: "Open", payment_hold: true }),
-  order({ order_number: "ORD-HOLD-PICKED", item_status: "Picked", payment_hold: true }),
+  order({ order_number: "MQ48213X", item_status: "Open", payment_hold: true }),
+  order({ order_number: "MQ48214X", item_status: "Picked", payment_hold: true }),
   order({
-    order_number: "ORD-HOLD-CLOSED",
+    order_number: "MQ48215X",
     item_status: "Closed",
     payment_hold: true,
     order_datetime: `${businessDaysAgo(12)}T10:00:00-04:00`,
@@ -126,14 +126,14 @@ const orders = [
   }),
 
   // --- Section 5 Cancellation branches (7) ---
-  order({ order_number: "ORD-CANCEL-OVER2000", order_value: 2500, item_status: "Open" }),
-  order({ order_number: "ORD-CANCEL-UNDER-OPEN", order_value: 500, item_status: "Open" }),
-  order({ order_number: "ORD-CANCEL-UNDER-PICKED", order_value: 500, item_status: "Picked" }),
-  order({ order_number: "ORD-CANCEL-UNDER-PARTIAL-PICKED", order_value: 500, item_status: "Partial Picked" }),
-  order({ order_number: "ORD-CANCEL-UNDER-PICKED-DROP", order_value: 500, item_status: "Picked Drop" }),
-  order({ order_number: "ORD-CANCEL-UNDER-COMEIN-DROP", order_value: 500, item_status: "ComeIn Drop" }),
+  order({ order_number: "MR39561Y", order_value: 2500, item_status: "Open" }),
+  order({ order_number: "MR39562Y", order_value: 500, item_status: "Open" }),
+  order({ order_number: "MR39563Y", order_value: 500, item_status: "Picked" }),
+  order({ order_number: "MR39564Y", order_value: 500, item_status: "Partial Picked" }),
+  order({ order_number: "MR39565Y", order_value: 500, item_status: "Picked Drop" }),
+  order({ order_number: "MR39566Y", order_value: 500, item_status: "ComeIn Drop" }),
   order({
-    order_number: "ORD-CANCEL-UNDER-CLOSED",
+    order_number: "MR39567Y",
     order_value: 500,
     item_status: "Closed",
     order_datetime: `${businessDaysAgo(7)}T10:00:00-04:00`,
@@ -142,21 +142,21 @@ const orders = [
 
   // --- Section 6 Returns branches (3) ---
   order({
-    order_number: "ORD-RMA-UNDER-FIRST",
+    order_number: "MS72904Z",
     order_value: 500,
     item_status: "Closed",
     order_datetime: `${businessDaysAgo(12)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 10, trackingStatus: "delivered", lastMovementDaysAgo: 9, trackingNumber: "1Z0000000TESTRMA1" }),
   }),
   order({
-    order_number: "ORD-RMA-UNDER-REPEAT",
+    order_number: "MS72905Z",
     order_value: 500,
     item_status: "Closed",
     order_datetime: `${businessDaysAgo(22)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 20, trackingStatus: "delivered", lastMovementDaysAgo: 19, trackingNumber: "1Z0000000TESTRMA2" }),
   }),
   order({
-    order_number: "ORD-RMA-OVER2000",
+    order_number: "MS72906Z",
     order_value: 3000,
     item_status: "Closed",
     order_datetime: `${businessDaysAgo(12)}T10:00:00-04:00`,
@@ -165,35 +165,35 @@ const orders = [
 
   // --- Section 7 Shipping Delay branches (5) ---
   order({
-    order_number: "ORD-DELAY-EXTEND-NOMOVEMENT",
+    order_number: "MT85017A",
     item_status: "Closed",
     extend_protection: true,
     order_datetime: `${businessDaysAgo(7)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 5, trackingStatus: "no_movement", trackingNumber: "1Z0000000TESTDELAY1" }),
   }),
   order({
-    order_number: "ORD-DELAY-NOEXTEND-UNDER7",
+    order_number: "MT85018A",
     item_status: "Closed",
     extend_protection: false,
     order_datetime: `${businessDaysAgo(5)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 3, trackingStatus: "no_movement", trackingNumber: "1Z0000000TESTDELAY2" }),
   }),
   order({
-    order_number: "ORD-DELAY-NOEXTEND-OVER7",
+    order_number: "MT85019A",
     item_status: "Closed",
     extend_protection: false,
     order_datetime: `${businessDaysAgo(11)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 9, trackingStatus: "no_movement", trackingNumber: "1Z0000000TESTDELAY3" }),
   }),
   order({
-    order_number: "ORD-DELAY-EXTEND-NOTRECEIVED",
+    order_number: "MT85020A",
     item_status: "Closed",
     extend_protection: true,
     order_datetime: `${businessDaysAgo(8)}T10:00:00-04:00`,
     shipment: shippedShipment({ shipDaysAgo: 6, trackingStatus: "delivered", lastMovementDaysAgo: 3, deliveredDaysAgo: 2, trackingNumber: "1Z0000000TESTDELAY4" }),
   }),
   order({
-    order_number: "ORD-DELAY-NOEXTEND-NOTRECEIVED",
+    order_number: "MT85021A",
     item_status: "Closed",
     extend_protection: false,
     order_datetime: `${businessDaysAgo(8)}T10:00:00-04:00`,
@@ -204,13 +204,28 @@ const orders = [
 const rmaRecords = [
   {
     rma_id: "RMA-5001",
-    order_number: "ORD-RMA-UNDER-REPEAT",
+    order_number: "MS72905Z",
     reason: "Missing manual documentation from a prior return",
     created_at: `${businessDaysAgo(15)}T00:00:00Z`,
   },
 ];
 
-module.exports = { orders, rmaRecords };
+// Order numbers are now realistic opaque codes (no meaningful prefix), so
+// the scenario harness groups orders by position rather than by parsing
+// order_number — these slices mirror the section comments above.
+const orderStatusOrders = orders.slice(0, 18); // Approval Status (8) + Item Status/Hold (10)
+const cancellationOrders = orders.slice(18, 25); // Cancellation (7)
+const returnsOrders = orders.slice(25, 28); // Returns (3)
+const shippingDelayOrders = orders.slice(28, 33); // Shipping Delay (5)
+
+module.exports = {
+  orders,
+  rmaRecords,
+  orderStatusOrders,
+  cancellationOrders,
+  returnsOrders,
+  shippingDelayOrders,
+};
 
 if (require.main === module) {
   const seedDir = __dirname;
