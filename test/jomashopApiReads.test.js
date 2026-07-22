@@ -26,6 +26,23 @@ test("GetOrdersForPhoneAIByPhoneNo returns orders for the matching customer", as
   }
 });
 
+test("GetOrdersForPhoneAIByPhoneNo matches an E.164-formatted phone number (real Caller ID format)", async () => {
+  const { server, base } = startServer();
+  try {
+    const res = await fetch(`${base}/api/GetOrdersForPhoneAIByPhoneNo?phoneno=%2B12548457542`, {
+      method: "POST",
+      headers: { Authorization: AUTH },
+    });
+    assert.equal(res.status, 200);
+    const body = await res.json();
+    assert.ok(Array.isArray(body));
+    assert.ok(body.length > 0);
+    assert.ok(body.every((o) => o.customer_id === "CUST-100001"));
+  } finally {
+    server.close();
+  }
+});
+
 test("GetOrdersForEmailAI and GetOrdersForNameAI resolve the same customer", async () => {
   const { server, base } = startServer();
   try {

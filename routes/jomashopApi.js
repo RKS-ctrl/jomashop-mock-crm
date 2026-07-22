@@ -4,9 +4,18 @@ const { nextId } = require("../lib/ids");
 
 const router = express.Router();
 
+// Strips formatting (+, spaces, dashes, parens) and any country code so
+// callers can be matched regardless of the exact format Caller ID sends.
+function normalizePhone(phone) {
+  return String(phone).replace(/\D/g, "").slice(-10);
+}
+
 function findCustomerByPhone(phone) {
   const customers = load("customers", "customer_id");
-  return Object.values(customers).find((c) => c.contact && c.contact.primary_phone === phone);
+  const target = normalizePhone(phone);
+  return Object.values(customers).find(
+    (c) => c.contact && normalizePhone(c.contact.primary_phone) === target
+  );
 }
 
 function findCustomerByEmail(email) {
