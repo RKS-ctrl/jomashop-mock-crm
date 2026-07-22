@@ -13,7 +13,7 @@ function startServer() {
 test("GetOrdersForPhoneAIByPhoneNo returns orders for the matching customer", async () => {
   const { server, base } = startServer();
   try {
-    const res = await fetch(`${base}/api/GetOrdersForPhoneAIByPhoneNo?phoneno=8016289922`, {
+    const res = await fetch(`${base}/api/GetOrdersForPhoneAIByPhoneNo?phoneno=2548457542`, {
       method: "POST",
       headers: { Authorization: AUTH },
     });
