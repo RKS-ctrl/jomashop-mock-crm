@@ -165,7 +165,7 @@
     },
     "/api/RaiseZendeskTicket": {
       "post": {
-        "summary": "Raise a Zendesk ticket (invented)",
+        "summary": "Raise a Zendesk ticket (invented). orderno is optional — identity-verification-failed and out-of-scope tickets legitimately have no order to attach to.",
         "security": [{ "basicAuth": [] }],
         "requestBody": {
           "required": true,
@@ -173,7 +173,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["orderno", "type"],
+                "required": ["type"],
                 "properties": {
                   "orderno": { "type": "string" },
                   "type": { "type": "string" },

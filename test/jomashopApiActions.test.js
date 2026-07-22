@@ -144,7 +144,7 @@ test("CancelOrderForPhoneAI returns 400 without orderno and 404 for an unknown o
   }
 });
 
-test("RaiseZendeskTicket returns 400 without orderno/type and 404 for an unknown order", async () => {
+test("RaiseZendeskTicket returns 400 without type and 404 for an unknown order", async () => {
   const { server, base } = startServer();
   try {
     let res = await post(base, "RaiseZendeskTicket", { orderno: "ORD-APR-APPROVED" });
@@ -155,6 +155,39 @@ test("RaiseZendeskTicket returns 400 without orderno/type and 404 for an unknown
       type: "Order Decline Review",
     });
     assert.equal(res.status, 404);
+  } finally {
+    server.close();
+  }
+});
+
+test("RaiseZendeskTicket succeeds with no order number at all (identity-failure / out-of-scope tickets)", async () => {
+  const { server, base } = startServer();
+  try {
+    const res = await post(base, "RaiseZendeskTicket", {
+      type: "Identity Verification Failed",
+      reason: "Customer provided a phone number but no matching customer record was found.",
+    });
+    assert.equal(res.status, 201);
+    const ticket = await res.json();
+    assert.equal(ticket.type, "Identity Verification Failed");
+    assert.equal(ticket.order_number, null);
+    assert.ok(ticket.ticket_id);
+  } finally {
+    server.close();
+  }
+});
+
+test("RaiseZendeskTicket ignores exception:true when there's no order to flag", async () => {
+  const { server, base } = startServer();
+  try {
+    const res = await post(base, "RaiseZendeskTicket", {
+      type: "Out of Scope Inquiry",
+      reason: "Customer asked about pricing",
+      exception: true,
+    });
+    assert.equal(res.status, 201);
+    const ticket = await res.json();
+    assert.equal(ticket.order_number, null);
   } finally {
     server.close();
   }

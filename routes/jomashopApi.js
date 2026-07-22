@@ -83,15 +83,21 @@ router.post("/CancelOrderForPhoneAI", (req, res) => {
 
 router.post("/RaiseZendeskTicket", (req, res) => {
   const { orderno, type, reason, raised_by, exception } = req.body || {};
-  if (!orderno || !type) return res.status(400).json({ error: "orderno and type are required" });
+  if (!type) return res.status(400).json({ error: "type is required" });
+  // orderno is optional: identity-verification-failed and out-of-scope
+  // tickets legitimately have no order to attach to. If one IS provided,
+  // it must be a real order.
   const orders = load("orders", "order_number");
-  const order = orders[orderno];
-  if (!order) return res.status(404).json({ error: "Order not found" });
+  let order = null;
+  if (orderno) {
+    order = orders[orderno];
+    if (!order) return res.status(404).json({ error: "Order not found" });
+  }
   const tickets = load("tickets", "ticket_id");
   const ticket_id = nextId(tickets, "ZD", 10001);
   const ticket = {
     ticket_id,
-    order_number: orderno,
+    order_number: orderno || null,
     type,
     reason: reason || "",
     raised_by: raised_by || "voice_agent",
@@ -99,7 +105,7 @@ router.post("/RaiseZendeskTicket", (req, res) => {
   };
   tickets[ticket_id] = ticket;
   save("tickets", tickets);
-  if (exception) {
+  if (exception && order) {
     order.exception_flag = true;
     orders[orderno] = order;
     save("orders", orders);
